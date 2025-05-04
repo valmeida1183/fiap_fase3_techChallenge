@@ -8,17 +8,13 @@ namespace Infraestructure.Repository.Base;
 public abstract class BaseHttpRepository<T> : IHttpRepository<T> where T : BaseEntity
 {
     protected readonly HttpClient _httpClient;
-    protected readonly string _baseUrl;    
+    //protected readonly string _baseUrl;    
     protected readonly string _url; 
 
-    public BaseHttpRepository(
-        HttpClient httpClient, 
-        IOptions<PersistanceApiUrlsOptions> options,
-        string endpoint)
+    public BaseHttpRepository(IHttpClientFactory httpClientFactory, string endpoint)
     {
-        _httpClient = httpClient;
-        _baseUrl = options.Value.Https;
-        _url = $"{_baseUrl}/{endpoint}";
+        _httpClient = httpClientFactory.CreateClient("PersistanceClientApi");        
+        _url = $"/{endpoint}";
     }
     public async Task<IList<T>> GetAllAsync()
     {

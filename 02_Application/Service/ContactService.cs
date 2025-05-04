@@ -23,4 +23,9 @@ public class ContactService : BaseService<Contact>, IContactService
             ? throw new ArgumentException("Invalid Direct Distance Dialing Id")
             : await _contactHttpRepository.GetAllByDddAsync(dddId);
     }
+
+    public async Task<string> ResilienceTest(bool fail)
+    {
+        return await _contactHttpRepository.ResilienceTest(fail);
+    }
 }

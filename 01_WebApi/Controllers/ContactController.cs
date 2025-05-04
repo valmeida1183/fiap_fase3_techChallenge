@@ -78,6 +78,13 @@ public class ContactController : ControllerBase
         }
     }
 
+    [HttpGet("persistence-error-test/{fail:bool}")]
+    public async Task<IActionResult> PersistanceApiErrorTest(bool fail)
+    {
+        var result = await _contactService.ResilienceTest(fail);
+        return Ok(new ResultViewModel<string>(result));
+    }
+
     [HttpPost()]
     public async Task<IActionResult> PostAsync([FromBody] ContactViewModel model)
     {
