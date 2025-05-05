@@ -2,6 +2,7 @@
 using Core.Entity.Base;
 using Core.Repository.Interface;
 using Microsoft.Extensions.Options;
+using System.Net;
 using System.Net.Http.Json;
 
 namespace Infraestructure.Repository.Base;
@@ -26,7 +27,14 @@ public abstract class BaseHttpRepository<T> : IHttpRepository<T> where T : BaseE
     public async Task<T?> GetByIdAsync(int id)
     {
         var url = $"{_url}/{id}";
-        return await _httpClient.GetFromJsonAsync<T>(url);
+
+        var response = await _httpClient.GetAsync(url);
+
+        if (response.StatusCode == HttpStatusCode.NoContent)
+            return null;
+
+        response.EnsureSuccessStatusCode();
+        return await response.Content.ReadFromJsonAsync<T>();
     }
 
     public async Task CreateAsync(T entity)
