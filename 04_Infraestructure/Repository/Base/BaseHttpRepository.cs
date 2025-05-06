@@ -1,7 +1,5 @@
-﻿using Core.Entity;
-using Core.Entity.Base;
+﻿using Core.Entity.Base;
 using Core.Repository.Interface;
-using Microsoft.Extensions.Options;
 using System.Net;
 using System.Net.Http.Json;
 
