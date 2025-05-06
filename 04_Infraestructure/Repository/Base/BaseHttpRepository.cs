@@ -6,8 +6,7 @@ using System.Net.Http.Json;
 namespace Infraestructure.Repository.Base;
 public abstract class BaseHttpRepository<T> : IHttpRepository<T> where T : BaseEntity
 {
-    protected readonly HttpClient _httpClient;
-    //protected readonly string _baseUrl;    
+    protected readonly HttpClient _httpClient;    
     protected readonly string _url; 
 
     public BaseHttpRepository(IHttpClientFactory httpClientFactory, string endpoint)
